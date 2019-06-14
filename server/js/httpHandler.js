@@ -8,13 +8,24 @@ module.exports.backgroundImageFile = path.join('.', 'background.jpg');
 ////////////////////////////////////////////////////////
 
 let messageQueue = null;
-module.exports.initialize = (queue) => {
+module.exports.initialize = queue => {
   messageQueue = queue;
 };
 
-module.exports.router = (req, res, next = ()=>{}) => {
+module.exports.router = (req, res, next = () => {}) => {
   console.log('Serving request type ' + req.method + ' for url ' + req.url);
-  res.writeHead(200, headers);
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200, headers);
+  }
+
+  if (req.method === 'GET') {
+    const dirs = ['up', 'down', 'left', 'right'];
+    const randomDir = dirs[Math.floor(Math.random() * 4)];
+    res.write(randomDir);
+    res.writeHead(200, headers);
+  }
+
   res.end();
   next(); // invoke next() at the end of a request to help with testing!
 };
