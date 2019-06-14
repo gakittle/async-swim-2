@@ -17,15 +17,16 @@ module.exports.router = (req, res, next = () => {}) => {
 
   if (req.method === 'OPTIONS') {
     res.writeHead(200, headers);
+    res.end();
   }
 
   if (req.method === 'GET') {
+    res.writeHead(200, headers);
+
     const dirs = ['up', 'down', 'left', 'right'];
     const randomDir = dirs[Math.floor(Math.random() * 4)];
-    res.write(randomDir);
-    res.writeHead(200, headers);
+    res.end(randomDir);
   }
 
-  res.end();
   next(); // invoke next() at the end of a request to help with testing!
 };
