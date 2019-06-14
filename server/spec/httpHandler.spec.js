@@ -18,13 +18,12 @@ describe('server responses', () => {
   });
 
   it('should respond to a GET request for a swim command', done => {
-    let { req, res } = server.mock('/', 'GET');
-    const dirs = ['up', 'down', 'left', 'right'];
+    let { req, res } = server.mock('/?direction=up', 'GET');
 
     httpHandler.router(req, res);
     expect(res._responseCode).to.equal(200);
     expect(res._ended).to.equal(true);
-    expect(_.contains(dirs, res._data.toString())).to.equal(true);
+    expect(res._data.toString()).to.equal('up');
 
     done();
   });

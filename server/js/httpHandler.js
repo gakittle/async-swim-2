@@ -23,9 +23,8 @@ module.exports.router = (req, res, next = () => {}) => {
   if (req.method === 'GET') {
     res.writeHead(200, headers);
 
-    const dirs = ['up', 'down', 'left', 'right'];
-    const randomDir = dirs[Math.floor(Math.random() * 4)];
-    res.end(randomDir);
+    const direction = req.url.split('=')[1];
+    res.end(direction);
   }
 
   next(); // invoke next() at the end of a request to help with testing!
